@@ -2,9 +2,14 @@
 var playButton = document.getElementById('play-button');
 var pauseButton = document.getElementById('pause-button');
 var video = document.getElementById('background-video');
+var dialogBox = document.getElementById('dialog-box');
+var closeDialog = document.getElementById('close-dialog');
 
 // Inicialmente, o botão pause-button deve estar oculto
-pauseButton.classList.add('hidden');
+pauseButton.style.display = 'none';
+
+// Variável para armazenar o tempo atual do vídeo quando for pausado
+let currentTime = 0;
 
 // Evento de clique no botão de play
 playButton.addEventListener('click', function() {
@@ -14,37 +19,26 @@ playButton.addEventListener('click', function() {
     // Esconder o botão de play
     playButton.style.display = 'none';
     
-    // Mostrar o botão de baixar foto
-    pauseButton.classList.remove('hidden');
+    // Mostrar o botão de pause
+    pauseButton.style.display = 'block';
 });
 
-// Evento de clique no botão de baixar foto
+// Evento de clique no botão de pause
 pauseButton.addEventListener('click', function() {
-    // Ação para baixar foto (implemente aqui a lógica para baixar a foto)
-    console.log('Baixar foto clicado!');
-});
-
-// Variável para armazenar o tempo atual do vídeo quando for pausado
-let currentTime = 0;
-
-document.getElementById('pause-button').addEventListener('click', function() {
-    // Pausar o vídeo
-    var video = document.getElementById('background-video');
-    currentTime = video.currentTime; // Armazena o tempo atual do vídeo
+    // Pausar o vídeo e armazenar o tempo atual
+    currentTime = video.currentTime;
     video.pause();
 
     // Mostrar a caixa de diálogo
-    var dialogBox = document.getElementById('dialog-box');
-    dialogBox.style.display = 'flex'; // Mostrar a caixa de diálogo
+    dialogBox.style.display = 'flex';
 });
 
-document.getElementById('close-dialog').addEventListener('click', function() {
+// Evento de clique no botão de fechar diálogo
+closeDialog.addEventListener('click', function() {
     // Esconder a caixa de diálogo
-    var dialogBox = document.getElementById('dialog-box');
-    dialogBox.style.display = 'none'; // Esconder a caixa de diálogo
+    dialogBox.style.display = 'none';
 
     // Retomar o vídeo de onde foi pausado
-    var video = document.getElementById('background-video');
-    video.currentTime = currentTime; // Define o tempo atual para o tempo pausado
-    video.play(); // Retomar a reprodução
+    video.currentTime = currentTime;
+    video.play();
 });
