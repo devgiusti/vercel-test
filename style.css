@@ -1,0 +1,235 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI',  sans-serif;
+}
+
+/* Estilo geral do corpo */
+body {
+    height: 100vh;
+    overflow: hidden;
+    background-color: #000;
+    color: white;
+}
+
+/* Container do vídeo */
+.video-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Vídeo de fundo responsivo */
+video {
+    width: 100%;
+    height: 90%;
+    object-fit: cover; /* Ajusta o vídeo sem distorção */
+    background-color: black; /* Fundo preto para as áreas vazias */
+}
+
+.content {
+    position: absolute;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+}
+
+#play-button {
+    display: block; /* Garante que o botão ocupe toda a largura disponível */
+    padding: 8px 16px; /* Define o tamanho do botão */
+    font-family: inherit;
+    font-weight: normal;
+    font-size: 14px;
+    color: #ccc;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 999; /* Garante que o botão esteja acima de outros elementos */
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Transição suave */
+    box-shadow: none; /* Sem sombra */
+    
+    /* Centralização */
+    position: fixed; /* Permite posicionar o botão em relação à janela de visualização */
+    top: 55%; /* Coloca o topo do botão no meio vertical da tela */
+    left: 50%; /* Coloca o lado esquerdo do botão no meio horizontal da tela */
+    transform: translate(-50%, -50%); /* Ajusta o botão para que o centro esteja no meio da tela */
+}
+
+
+#play-button:hover {
+    background-color: #ccc;
+    color: #000;
+    border-color: #ccc;
+}
+
+#pause-button.hidden {
+    display: none; /* Oculta o botão inicialmente */
+}
+
+#pause-button {
+    position: fixed;
+    bottom: 20px; /* Ajusta o botão para ficar no rodapé da tela */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 20px;
+    color: white;
+    background: linear-gradient(0deg, rgb(16, 114, 44) 0%, rgb(84, 194, 94) 100%);
+    border: 2px solid white;
+    box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+    border-radius: 20em;
+    cursor: pointer;
+    z-index: 999; /* Para garantir que o botão esteja à frente de outros elementos */
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+#pause-button:hover {
+  box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+}
+
+#pause-button:active {
+  box-shadow: 0 0.3em 1em -0.5em #14a73e98;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Estilo da caixa de diálogo (modal) */
+#dialog-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Para garantir que a caixa de diálogo fique na frente */
+    display: none; /* Inicialmente escondida */
+}
+
+/* Conteúdo da caixa de diálogo */
+.dialog-content {
+    background-color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%; /* Ajusta a largura para 80% da tela */
+    max-width: 400px; /* Define uma largura máxima para telas maiores */
+    max-height: 70vh; /* Define uma altura máxima em viewport height */
+    overflow-y: auto; /* Permite rolagem se o conteúdo ultrapassar a altura máxima */
+}
+
+/* Estilo do texto */
+.dialog-content p {
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+}
+
+/* Estilo dos botões de contato */
+.contact-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.contact-button {
+    width: 185px;
+    padding: 10px 0;
+    background: linear-gradient(0deg, #478D2F 0%, #23F15E 100%);
+    border: 3px solid #CED4C8;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 25px;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.contact-button img {
+    width: 25px; /* Tamanho do ícone */
+    height: 25px;
+}
+
+/* Estilo do botão "Fechar" */
+#close-dialog {
+    display: block;
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Ajustes para resoluções menores */
+@media (max-width: 768px) {
+    .dialog-content {
+        width: 90%;
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .contact-button {
+        width: 160px;
+        font-size: 14px;
+    }
+
+    .contact-button img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dialog-content {
+        width: 95%; /* Use quase toda a largura disponível */
+        max-width: 95%; /* Evite qualquer overflow em telas pequenas */
+        padding: 10px; /* Reduza o padding */
+    }
+
+    .contact-button {
+        width: 140px; /* Reduza ainda mais a largura dos botões */
+        font-size: 12px; /* Texto menor */
+    }
+
+    .contact-button img {
+        width: 18px; /* Ícones menores */
+        height: 18px;
+    }
+}
+
+/* Estilo do link na caixa de diálogo */
+#link-to-site {
+    display: block;
+    margin: 20px 0;
+    color: #007bff; /* Cor do link */
+    text-decoration: none; /* Remove sublinhado */
+}
+
+#link-to-site:hover {
+    text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+}

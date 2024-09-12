@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Responsivo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="video-container">
+        <video id="background-video" autoplay loop playsinline>
+            <source src="/assets/Video.mp4" type="video/mp4">
+            Seu navegador não suporta o vídeo.
+        </video>
+        <div class="content">
+            <button id="play-button" aria-label="Play Video">Liberar</button>
+            <button id="pause-button" aria-label="Baixar Foto">Baixar Foto</button>
+        </div>
+    </div>
+    <div id="dialog-box" class="hidden">
+        <div class="dialog-content">
+            <p>Para receber o PDF gratuito com as dicas de segurança, entre em contato</p>
+            
+            <div class="contact-buttons">
+                <a href="https://wa.me/5521975253535?text=Ol%C3%A1,%20quero%20receber%20o%20PDF%20gratuito%20sobre%20seguran%C3%A7a%20digital%20:" target="_blank" class="contact-button">
+                    <img src="/assets/whatsapp.png" alt="WhatsApp" /> <!-- Ícone do WhatsApp -->
+                    <span>Meu Whatsapp</span>
+                </a>
+                <a href="https://www.instagram.com/juanguima021?igsh=MW4zcnM5c2l2ajhuZA%3D%3D&utm_source=qr " target="_blank" class="contact-button">
+                    <img src="/assets/instagram.png" alt="Instagram" /> <!-- Ícone do Instagram -->
+                    <span>Meu Instagram</span>
+                </a>
+            </div>
+            
+            <a href="#" id="close-dialog">Fechar</a>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
