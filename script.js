@@ -5,6 +5,16 @@ var video = document.getElementById('background-video');
 var dialogBox = document.getElementById('dialog-box');
 var closeDialog = document.getElementById('close-dialog');
 
+// Verificar se o vídeo está carregado
+video.addEventListener('error', function() {
+    console.error('Erro ao carregar o vídeo. Verifique o caminho e o formato.');
+});
+
+// Verificar se o vídeo está pronto para reprodução
+video.addEventListener('canplay', function() {
+    console.log('O vídeo está pronto para reprodução.');
+});
+
 // Inicialmente, o botão pause-button deve estar oculto
 pauseButton.style.display = 'none';
 
