@@ -1,44 +1,33 @@
-// Referências aos elementos
-var playButton = document.getElementById('play-button');
-var pauseButton = document.getElementById('pause-button');
-var video = document.getElementById('background-video');
-var dialogBox = document.getElementById('dialog-box');
-var closeDialog = document.getElementById('close-dialog');
+// Referencia os elementos: botões de play, pause, vídeo, caixa de diálogo e botão de fechar diálogo
+const playButton = document.getElementById('play-button');
+const pauseButton = document.getElementById('pause-button');
+const video = document.getElementById('background-video');
+const dialogBox = document.getElementById('dialog-box');
+const closeDialog = document.getElementById('close-dialog');
 
-// Inicialmente, o botão pause-button deve estar oculto
+// Oculta o botão de pause inicialmente
 pauseButton.style.display = 'none';
 
-// Variável para armazenar o tempo atual do vídeo quando for pausado
+// Armazena o tempo atual do vídeo quando for pausado
 let currentTime = 0;
 
-// Evento de clique no botão de play
+// Inicia o vídeo ao clicar no botão de play
 playButton.addEventListener('click', function() {
-    // Iniciar o vídeo
-    video.play();
-    
-    // Esconder o botão de play
-    playButton.style.display = 'none';
-    
-    // Mostrar o botão de pause
-    pauseButton.style.display = 'block';
+    video.play();  // Reproduz o vídeo
+    playButton.style.display = 'none';  // Oculta o botão de play
+    pauseButton.style.display = 'block';  // Exibe o botão de pause
 });
 
-// Evento de clique no botão de pause
+// Pausa o vídeo e exibe a caixa de diálogo ao clicar no botão de pause
 pauseButton.addEventListener('click', function() {
-    // Pausar o vídeo e armazenar o tempo atual
-    currentTime = video.currentTime;
-    video.pause();
-
-    // Mostrar a caixa de diálogo
-    dialogBox.style.display = 'flex';
+    currentTime = video.currentTime;  // Armazena o tempo atual do vídeo
+    video.pause();  // Pausa o vídeo
+    dialogBox.style.display = 'flex';  // Exibe a caixa de diálogo
 });
 
-// Evento de clique no botão de fechar diálogo
+// Fecha a caixa de diálogo e retoma o vídeo ao clicar no botão de fechar
 closeDialog.addEventListener('click', function() {
-    // Esconder a caixa de diálogo
-    dialogBox.style.display = 'none';
-
-    // Retomar o vídeo de onde foi pausado
-    video.currentTime = currentTime;
-    video.play();
+    dialogBox.style.display = 'none';  // Oculta a caixa de diálogo
+    video.currentTime = currentTime;  // Retorna ao tempo em que o vídeo foi pausado
+    video.play();  // Reproduz o vídeo novamente
 });
