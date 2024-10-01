@@ -1,25 +1,44 @@
-// Referencia os elementos do DOM: botões de play, pause/baixar foto e o vídeo de fundo
+// Referências aos elementos
 var playButton = document.getElementById('play-button');
 var pauseButton = document.getElementById('pause-button');
 var video = document.getElementById('background-video');
+var dialogBox = document.getElementById('dialog-box');
+var closeDialog = document.getElementById('close-dialog');
 
-// Define que o botão pause/baixar foto está oculto inicialmente
-pauseButton.classList.add('hidden');
+// Inicialmente, o botão pause-button deve estar oculto
+pauseButton.style.display = 'none';
 
-// Ao clicar no botão de play, o vídeo começa a ser reproduzido
+// Variável para armazenar o tempo atual do vídeo quando for pausado
+let currentTime = 0;
+
+// Evento de clique no botão de play
 playButton.addEventListener('click', function() {
-    // Inicia a reprodução do vídeo
+    // Iniciar o vídeo
     video.play();
     
-    // Esconde o botão de play da interface
+    // Esconder o botão de play
     playButton.style.display = 'none';
     
-    // Exibe o botão de baixar foto
-    pauseButton.classList.remove('hidden');
+    // Mostrar o botão de pause
+    pauseButton.style.display = 'block';
 });
 
-// Ao clicar no botão de pause/baixar foto, realiza a ação para baixar a foto
+// Evento de clique no botão de pause
 pauseButton.addEventListener('click', function() {
-    // Exibe uma mensagem no console indicando que o botão de baixar foi clicado
-    console.log('Baixar foto clicado!');
+    // Pausar o vídeo e armazenar o tempo atual
+    currentTime = video.currentTime;
+    video.pause();
+
+    // Mostrar a caixa de diálogo
+    dialogBox.style.display = 'flex';
+});
+
+// Evento de clique no botão de fechar diálogo
+closeDialog.addEventListener('click', function() {
+    // Esconder a caixa de diálogo
+    dialogBox.style.display = 'none';
+
+    // Retomar o vídeo de onde foi pausado
+    video.currentTime = currentTime;
+    video.play();
 });
