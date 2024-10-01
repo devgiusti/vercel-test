@@ -2,24 +2,9 @@
 var playButton = document.getElementById('play-button');
 var pauseButton = document.getElementById('pause-button');
 var video = document.getElementById('background-video');
-var dialogBox = document.getElementById('dialog-box');
-var closeDialog = document.getElementById('close-dialog');
-
-// Verificar se o vídeo está carregado
-video.addEventListener('error', function() {
-    console.error('Erro ao carregar o vídeo. Verifique o caminho e o formato.');
-});
-
-// Verificar se o vídeo está pronto para reprodução
-video.addEventListener('canplay', function() {
-    console.log('O vídeo está pronto para reprodução.');
-});
 
 // Inicialmente, o botão pause-button deve estar oculto
-pauseButton.style.display = 'none';
-
-// Variável para armazenar o tempo atual do vídeo quando for pausado
-let currentTime = 0;
+pauseButton.classList.add('hidden');
 
 // Evento de clique no botão de play
 playButton.addEventListener('click', function() {
@@ -29,26 +14,41 @@ playButton.addEventListener('click', function() {
     // Esconder o botão de play
     playButton.style.display = 'none';
     
-    // Mostrar o botão de pause
-    pauseButton.style.display = 'block';
+    // Mostrar o botão de baixar foto
+    pauseButton.classList.remove('hidden');
 });
 
-// Evento de clique no botão de pause
+// Evento de clique no botão de baixar foto
 pauseButton.addEventListener('click', function() {
-    // Pausar o vídeo e armazenar o tempo atual
-    currentTime = video.currentTime;
-    video.pause();
-
-    // Mostrar a caixa de diálogo
-    dialogBox.style.display = 'flex';
+    // Verificar se o vídeo está tocando
+    if (video.paused) {
+        video.play();
+    } else {
+        video.pause();
+    }
+    
+    // Mostrar novamente o botão de play
+    playButton.style.display = 'block';
 });
 
-// Evento de clique no botão de fechar diálogo
-closeDialog.addEventListener('click', function() {
-    // Esconder a caixa de diálogo
-    dialogBox.style.display = 'none';
+// Evento de clique no botão de pause para ocultar e mostrar o botão de play novamente
+playButton.addEventListener('click', function() {
+    // Esconder o botão de play
+    playButton.style.display = 'none';
+    
+    // Mostrar o botão de baixar foto
+    pauseButton.classList.remove('hidden');
+});
 
-    // Retomar o vídeo de onde foi pausado
-    video.currentTime = currentTime;
-    video.play();
+// Evento de clique no botão de pause para pausar ou continuar o vídeo e mostrar novamente o botão de play
+pauseButton.addEventListener('click', function() {
+    // Verificar se o vídeo está tocando
+    if (video.paused) {
+        video.play();
+    } else {
+        video.pause();
+    }
+    
+    // Mostrar novamente o botão de play
+    playButton.style.display = 'block';
 });
