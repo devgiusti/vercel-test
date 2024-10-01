@@ -1,33 +1,56 @@
-// Referencia os elementos: botões de play, pause, vídeo, caixa de diálogo e botão de fechar diálogo
-const playButton = document.getElementById('play-button');
-const pauseButton = document.getElementById('pause-button');
-const video = document.getElementById('background-video');
-const dialogBox = document.getElementById('dialog-box');
-const closeDialog = document.getElementById('close-dialog');
+// Referências aos elementos
+var playButton = document.getElementById('play-button');
+var pauseButton = document.getElementById('pause-button');
+var video = document.getElementById('background-video');
+var dialogBox = document.getElementById('dialog-box');
+var closeDialog = document.getElementById('close-dialog');
 
-// Oculta o botão de pause inicialmente
+// Inicialmente, o botão pause-button deve estar oculto
 pauseButton.style.display = 'none';
 
-// Armazena o tempo atual do vídeo quando for pausado
+// Variável para armazenar o tempo atual do vídeo quando for pausado
 let currentTime = 0;
 
-// Inicia o vídeo ao clicar no botão de play
+// Evento de clique no botão de play
 playButton.addEventListener('click', function() {
-    video.play();  // Reproduz o vídeo
-    playButton.style.display = 'none';  // Oculta o botão de play
-    pauseButton.style.display = 'block';  // Exibe o botão de pause
+    // Iniciar o vídeo e verificar se está funcionando corretamente
+    if (video.readyState >= 3) {
+        video.play();
+    } else {
+        console.error('Erro ao iniciar o vídeo');
+    }
+    
+    // Esconder o botão de play
+    playButton.style.display = 'none';
+    
+    // Mostrar o botão de pause
+    pauseButton.style.display = 'block';
 });
 
-// Pausa o vídeo e exibe a caixa de diálogo ao clicar no botão de pause
+// Evento de clique no botão de pause
 pauseButton.addEventListener('click', function() {
-    currentTime = video.currentTime;  // Armazena o tempo atual do vídeo
-    video.pause();  // Pausa o vídeo
-    dialogBox.style.display = 'flex';  // Exibe a caixa de diálogo
+    // Pausar o vídeo e armazenar o tempo atual
+    currentTime = video.currentTime;
+    video.pause();
+
+    // Mostrar a caixa de diálogo
+    dialogBox.style.display = 'flex';
 });
 
-// Fecha a caixa de diálogo e retoma o vídeo ao clicar no botão de fechar
+// Evento de clique no botão de fechar diálogo
 closeDialog.addEventListener('click', function() {
-    dialogBox.style.display = 'none';  // Oculta a caixa de diálogo
-    video.currentTime = currentTime;  // Retorna ao tempo em que o vídeo foi pausado
-    video.play();  // Reproduz o vídeo novamente
+    // Esconder a caixa de diálogo
+    dialogBox.style.display = 'none';
+
+    // Retomar o vídeo de onde foi pausado
+    video.currentTime = currentTime;
+    video.play();
+});
+
+// Evento de clique no botão de pause para evitar que o vídeo seja iniciado novamente antes do tempo corrigido ser aplicado
+pauseButton.addEventListener('click', function() {
+    if (video.paused) {
+        // Se o vídeo estiver pausado, retomar seu estado anterior
+        video.currentTime = currentTime;
+    }
 });
