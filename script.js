@@ -1,42 +1,34 @@
-// Referências aos elementos
-var playButton = document.getElementById('play-button');
-var pauseButton = document.getElementById('pause-button');
-var video = document.getElementById('background-video');
-var dialogBox = document.getElementById('dialog-box');
+// Seleciona os elementos do DOM: botões de play, pause/baixar foto e o vídeo de fundo
+const playButton = document.getElementById('play-button');
+const pauseButton = document.getElementById('pause-button');
+const video = document.getElementById('background-video');
 
-// Inicialmente, o botão pause-button deve estar oculto
+// Oculta o botão de pause/baixar foto inicialmente
 pauseButton.classList.add('hidden');
 
-// Evento de clique no botão de play
+// Função para mostrar um botão
+function showButton(button) {
+    button.classList.remove('hidden');
+}
+
+// Função para esconder um botão
+function hideButton(button) {
+    button.classList.add('hidden');
+}
+
+// Ao clicar no botão de play, o vídeo começa a ser reproduzido
 playButton.addEventListener('click', function() {
-    // Iniciar o vídeo
-    video.play();
-    
-    // Esconder o botão de play
-    playButton.style.display = 'none';
-    
-    // Mostrar o botão de baixar foto
-    pauseButton.classList.remove('hidden');
+    // Tenta reproduzir o vídeo e, se bem-sucedido, altera a exibição dos botões
+    video.play().then(() => {
+        hideButton(playButton);  // Esconde o botão de play
+        showButton(pauseButton); // Mostra o botão de baixar foto
+    }).catch((error) => {
+        // Lida com erros de reprodução de vídeo, se ocorrerem
+        console.error('Erro ao reproduzir o vídeo:', error);
+    });
 });
 
-// Evento de clique no botão de baixar foto
+// Ao clicar no botão de pause/baixar foto, executa a ação desejada (neste caso, um log no console)
 pauseButton.addEventListener('click', function() {
-    // Parar o vídeo
-    video.pause();
-    
-    // Mostrar a caixa de diálogo
-    dialogBox.classList.remove('hidden');
-});
-
-// Evento de clique no botão de fechar da caixa de diálogo
-document.getElementById('close-dialog').addEventListener('click', function() {
-    // Fechar a caixa de diálogo
-    document.getElementById('dialog-box').classList.add('hidden');
-    
-    // Retomar o vídeo
-    video.play();
-    
-    // Mostrar novamente o botão de play e esconder o botão de baixar foto
-    playButton.style.display = 'block';
-    pauseButton.classList.add('hidden');
+    console.log('Baixar foto clicado!'); // Ação ao clicar no botão de baixar foto
 });
