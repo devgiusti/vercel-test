@@ -1,56 +1,51 @@
-// Referências aos elementos
-var playButton = document.getElementById('play-button');
-var pauseButton = document.getElementById('pause-button');
-var video = document.getElementById('background-video');
-var dialogBox = document.getElementById('dialog-box');
-var closeDialog = document.getElementById('close-dialog');
+        // Referências aos elementos
+        const playButton = document.getElementById('play-button');
+        const pauseButton = document.getElementById('pause-button');
+        const video = document.getElementById('background-video');
+        const dialogBox = document.getElementById('dialog-box');
+        const closeDialog = document.getElementById('close-dialog');
 
-// Inicialmente, o botão pause-button deve estar oculto
-pauseButton.style.display = 'none';
+        // Oculta o botão de pause inicialmente
+        pauseButton.style.display = 'none';
 
-// Variável para armazenar o tempo atual do vídeo quando for pausado
-let currentTime = 0;
+        // Armazena o tempo atual do vídeo quando for pausado
+        let currentTime = 0;
 
-// Evento de clique no botão de play
-playButton.addEventListener('click', function() {
-    // Iniciar o vídeo e verificar se está funcionando corretamente
-    if (video.readyState >= 3) {
-        video.play();
-    } else {
-        console.error('Erro ao iniciar o vídeo');
-    }
-    
-    // Esconder o botão de play
-    playButton.style.display = 'none';
-    
-    // Mostrar o botão de pause
-    pauseButton.style.display = 'block';
-});
+        // Função para iniciar o vídeo ao clicar no botão de play
+        playButton.addEventListener('click', function() {
+            // Verifica se o vídeo está pronto para ser reproduzido
+            if (video.readyState >= 3) {
+                video.play().catch(function(error) {
+                    console.error('Erro ao reproduzir o vídeo: ', error);
+                });
+            } else {
+                console.error('O vídeo não está pronto para ser reproduzido.');
+            }
+            // Esconde o botão de play e exibe o botão de pause
+            playButton.style.display = 'none';
+            pauseButton.style.display = 'block';
+        });
 
-// Evento de clique no botão de pause
-pauseButton.addEventListener('click', function() {
-    // Pausar o vídeo e armazenar o tempo atual
-    currentTime = video.currentTime;
-    video.pause();
+        // Função para pausar o vídeo e exibir a caixa de diálogo
+        pauseButton.addEventListener('click', function() {
+            currentTime = video.currentTime; // Armazena o tempo atual do vídeo
+            video.pause(); // Pausa o vídeo
+            dialogBox.style.display = 'flex'; // Exibe a caixa de diálogo
+        });
 
-    // Mostrar a caixa de diálogo
-    dialogBox.style.display = 'flex';
-});
+        // Função para fechar a caixa de diálogo e retomar o vídeo
+        closeDialog.addEventListener('click', function() {
+            dialogBox.style.display = 'none'; // Oculta a caixa de diálogo
+            video.currentTime = currentTime; // Volta ao tempo em que o vídeo foi pausado
+            video.play().catch(function(error) {
+                console.error('Erro ao tentar retomar o vídeo:', error);
+            });
+        });
 
-// Evento de clique no botão de fechar diálogo
-closeDialog.addEventListener('click', function() {
-    // Esconder a caixa de diálogo
-    dialogBox.style.display = 'none';
+        // Evento para lidar com erros durante a reprodução no iOS
+        video.addEventListener('error', function(e) {
+            console.error('Erro de vídeo:', e);
+        });
 
-    // Retomar o vídeo de onde foi pausado
-    video.currentTime = currentTime;
-    video.play();
-});
-
-// Evento de clique no botão de pause para evitar que o vídeo seja iniciado novamente antes do tempo corrigido ser aplicado
-pauseButton.addEventListener('click', function() {
-    if (video.paused) {
-        // Se o vídeo estiver pausado, retomar seu estado anterior
-        video.currentTime = currentTime;
-    }
-});
+        // Adiciona controles ao vídeo para facilitar testes
+        video.setAttribute('controls', 'controls');
