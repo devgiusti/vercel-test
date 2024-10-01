@@ -2,7 +2,6 @@
 var playButton = document.getElementById('play-button');
 var pauseButton = document.getElementById('pause-button');
 var video = document.getElementById('background-video');
-var closeButton = document.getElementById('close-dialog');
 
 // Inicialmente, o botão pause-button deve estar oculto
 pauseButton.classList.add('hidden');
@@ -25,17 +24,19 @@ pauseButton.addEventListener('click', function() {
     video.pause();
     
     // Mostrar a caixa de diálogo
-    var dialogBox = document.getElementById('dialog-box');
-    dialogBox.classList.remove('hidden');
-});
-
-// Evento de clique no botão de fechar da caixa de diálogo
-closeButton.addEventListener('click', function() {
-    // Fechar a caixa de diálogo
-    var dialogBox = document.getElementById('dialog-box');
-    dialogBox.classList.add('hidden');
+    document.getElementById('dialog-box').classList.remove('hidden');
     
-    // Retomar o vídeo e mostrar o botão de play novamente
-    video.play();
-    playButton.style.display = 'block';
+    // Fechar a caixa de diálogo e retomar o vídeo quando clicar no botão fechar
+    var closeButton = document.getElementById('close-dialog');
+    closeButton.addEventListener('click', function() {
+        // Fechar a caixa de diálogo
+        document.getElementById('dialog-box').classList.add('hidden');
+        
+        // Retomar o vídeo
+        video.play();
+        
+        // Mostrar novamente o botão de play e esconder o botão de baixar foto
+        playButton.style.display = 'block';
+        pauseButton.classList.add('hidden');
+    });
 });
